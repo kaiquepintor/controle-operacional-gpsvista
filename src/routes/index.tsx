@@ -12,9 +12,11 @@ import {
   Plane,
   Search,
   Radio,
+  PlayCircle,
 } from "lucide-react";
 import { DashboardCard } from "@/components/DashboardCard";
 import { DashboardModal } from "@/components/DashboardModal";
+import { PresentationMode } from "@/components/PresentationMode";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -91,6 +93,7 @@ const dashboards = [
 
 function Index() {
   const [active, setActive] = useState<{ url: string; title: string } | null>(null);
+  const [presenting, setPresenting] = useState(false);
   const [query, setQuery] = useState("");
   const [time, setTime] = useState(new Date());
 
@@ -140,12 +143,21 @@ function Index() {
             </div>
           </div>
 
-          <div className="hidden md:flex items-center gap-6 text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground">
-            <span>v 2.0</span>
-            <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              {dashboards.length} painéis
-            </span>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setPresenting(true)}
+              className="group flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-brand to-accent text-brand-foreground text-xs font-bold uppercase tracking-widest hover:shadow-[0_0_30px_-5px_var(--brand)] transition-all hover:scale-105 active:scale-95"
+            >
+              <PlayCircle className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+              <span className="hidden sm:inline">Apresentação</span>
+            </button>
+            <div className="hidden md:flex items-center gap-6 text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground">
+              <span>v 2.0</span>
+              <span className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                {dashboards.length} painéis
+              </span>
+            </div>
           </div>
         </motion.div>
 
@@ -234,6 +246,17 @@ function Index() {
         url={active?.url ?? ""}
         title={active?.title ?? ""}
         onClose={() => setActive(null)}
+      />
+
+      <PresentationMode
+        open={presenting}
+        onClose={() => setPresenting(false)}
+        items={dashboards.map((d) => ({
+          title: d.t,
+          url: d.u,
+          icon: d.i,
+          accent: d.accent,
+        }))}
       />
     </div>
   );
