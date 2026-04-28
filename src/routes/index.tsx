@@ -12,9 +12,11 @@ import {
   Plane,
   Search,
   Radio,
+  PlayCircle,
 } from "lucide-react";
 import { DashboardCard } from "@/components/DashboardCard";
 import { DashboardModal } from "@/components/DashboardModal";
+import { PresentationMode } from "@/components/PresentationMode";
 
 export const Route = createFileRoute("/")({
   head: () => ({
