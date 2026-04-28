@@ -247,6 +247,17 @@ function Index() {
         title={active?.title ?? ""}
         onClose={() => setActive(null)}
       />
+
+      <PresentationMode
+        open={presenting}
+        onClose={() => setPresenting(false)}
+        items={dashboards.map((d) => ({
+          title: d.t,
+          url: d.u,
+          icon: d.i,
+          accent: d.accent,
+        }))}
+      />
     </div>
   );
 }
