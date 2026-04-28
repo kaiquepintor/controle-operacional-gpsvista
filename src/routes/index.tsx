@@ -93,6 +93,7 @@ const dashboards = [
 
 function Index() {
   const [active, setActive] = useState<{ url: string; title: string } | null>(null);
+  const [presenting, setPresenting] = useState(false);
   const [query, setQuery] = useState("");
   const [time, setTime] = useState(new Date());
 
