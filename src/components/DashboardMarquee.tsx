@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
-import { ChevronRight } from "lucide-react";
 
 type Item = {
   t: string;
@@ -16,7 +15,7 @@ interface DashboardMarqueeProps {
 }
 
 export function DashboardMarquee({ items, onSelect }: DashboardMarqueeProps) {
-  // duplicate the array so the marquee loop is seamless
+  // duplicate for seamless loop
   const loop = [...items, ...items];
 
   return (
@@ -24,10 +23,10 @@ export function DashboardMarquee({ items, onSelect }: DashboardMarqueeProps) {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
-      className="relative mb-10 glass-card rounded-full overflow-hidden mask-fade-x"
+      className="relative mb-10 glass-card rounded-2xl overflow-hidden mask-fade-x"
     >
       {/* Live label */}
-      <div className="absolute left-0 top-0 bottom-0 z-20 flex items-center gap-2 px-4 bg-gradient-to-r from-background via-background to-transparent pr-8">
+      <div className="absolute left-3 top-3 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur border border-border">
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
           <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
@@ -37,31 +36,61 @@ export function DashboardMarquee({ items, onSelect }: DashboardMarqueeProps) {
         </span>
       </div>
 
-      <div className="flex animate-marquee py-3 pl-32 pr-8 w-max">
+      <div className="flex animate-marquee py-4 px-4 gap-4 w-max">
         {loop.map((d, idx) => {
           const Icon = d.i;
           return (
             <button
               key={`${d.t}-${idx}`}
               onClick={() => onSelect({ url: d.u, title: d.t })}
-              className="group flex items-center gap-3 px-5 mx-1 rounded-full hover:bg-white/5 transition-colors shrink-0"
+              className="group relative shrink-0 w-[360px] h-[200px] rounded-xl overflow-hidden ring-1 ring-white/10 hover:ring-white/40 transition-all hover:scale-[1.02]"
+              style={{
+                boxShadow: `0 10px 40px -15px ${d.accent}`,
+              }}
             >
-              <span
-                className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 ring-1 ring-white/10 group-hover:ring-white/30 transition"
+              {/* Live BI iframe preview */}
+              <div className="absolute inset-0 bg-background">
+                <iframe
+                  src={d.u}
+                  title={d.t}
+                  loading="lazy"
+                  className="absolute top-0 left-0 origin-top-left pointer-events-none"
+                  style={{
+                    width: "1280px",
+                    height: "720px",
+                    transform: "scale(0.28)",
+                    border: 0,
+                  }}
+                />
+              </div>
+
+              {/* Color overlay accent */}
+              <div
+                className="absolute inset-0 opacity-20 group-hover:opacity-0 transition-opacity"
                 style={{
-                  background: `linear-gradient(135deg, ${d.accent}, transparent)`,
+                  background: `linear-gradient(135deg, ${d.accent}, transparent 60%)`,
                 }}
-              >
-                <Icon className="w-3.5 h-3.5 text-foreground" strokeWidth={2.5} />
-              </span>
-              <span className="text-xs font-bold uppercase tracking-wider text-foreground whitespace-nowrap">
-                {d.t}
-              </span>
-              <span className="text-[11px] text-muted-foreground whitespace-nowrap max-w-[260px] truncate">
-                {d.desc}
-              </span>
-              <ChevronRight className="w-3 h-3 text-muted-foreground group-hover:text-brand group-hover:translate-x-0.5 transition" />
-              <span className="w-1 h-1 rounded-full bg-border ml-2" />
+              />
+
+              {/* Bottom label */}
+              <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-background via-background/90 to-transparent flex items-center gap-2">
+                <span
+                  className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ring-1 ring-white/15"
+                  style={{
+                    background: `linear-gradient(135deg, ${d.accent}, transparent)`,
+                  }}
+                >
+                  <Icon className="w-3.5 h-3.5 text-foreground" strokeWidth={2.5} />
+                </span>
+                <div className="text-left min-w-0">
+                  <p className="text-xs font-bold uppercase tracking-wider text-foreground truncate">
+                    {d.t}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground truncate">
+                    {d.desc}
+                  </p>
+                </div>
+              </div>
             </button>
           );
         })}
