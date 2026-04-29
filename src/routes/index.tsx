@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { DashboardCard } from "@/components/DashboardCard";
 import { DashboardModal } from "@/components/DashboardModal";
+import { DashboardMarquee } from "@/components/DashboardMarquee";
 import { PresentationMode } from "@/components/PresentationMode";
 
 export const Route = createFileRoute("/")({
@@ -160,6 +161,12 @@ function Index() {
             </div>
           </div>
         </motion.div>
+
+        {/* Live marquee banner */}
+        <DashboardMarquee
+          items={dashboards}
+          onSelect={(it) => setActive(it)}
+        />
 
         {/* Hero */}
         <header className="text-center mb-14 md:mb-20">
