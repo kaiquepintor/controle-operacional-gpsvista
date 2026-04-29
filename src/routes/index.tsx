@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { DashboardCard } from "@/components/DashboardCard";
 import { DashboardModal } from "@/components/DashboardModal";
+import { DashboardMarquee } from "@/components/DashboardMarquee";
 import { PresentationMode } from "@/components/PresentationMode";
 
 export const Route = createFileRoute("/")({
