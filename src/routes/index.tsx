@@ -22,7 +22,7 @@ import { PresentationMode } from "@/components/PresentationMode";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "GPS Vista — Central de Inteligência Operacional" },
+      { title: "GPS Vista — Central de Controle Operacional" },
       {
         name: "description",
         content:
@@ -64,14 +64,14 @@ const dashboards = [
   },
   {
     t: "NCs",
-    desc: "Não conformidades, prazos e tratativas em aberto",
+    desc: "Não conformidades, prazos e tratativas",
     i: AlertTriangle,
     accent: "oklch(0.7 0.22 35)",
     u: "https://app.powerbi.com/view?r=eyJrIjoiMDQyYjg2MTktZmRkMy00OTk2LThmZDktZTAzNGViMzgwNDg3IiwidCI6IjQyODUyNWQ5LTIzYmQtNGY4Yy1hZmEyLTU2MDBmNDAxZjMyNiJ9",
   },
   {
     t: "Eventos",
-    desc: "Calendário e indicadores de eventos operacionais",
+    desc: "Indicadores de eventos operacionais",
     i: CalendarDays,
     accent: "oklch(0.65 0.24 305)",
     u: "https://app.powerbi.com/view?r=eyJrIjoiMzk0YjM1NDgtNDY2Yi00ZjEyLThhMmEtZDM5YzZlZDU3OTc5IiwidCI6IjQyODUyNWQ5LTIzYmQtNGY4Yy1hZmEyLTU2MDBmNDAxZjMyNiJ9",
@@ -85,7 +85,7 @@ const dashboards = [
   },
   {
     t: "Drones",
-    desc: "Sobrevoos, áreas cobertas e detecções automáticas",
+    desc: "Monitoramento de opearações com drones",
     i: Plane,
     accent: "oklch(0.65 0.2 260)",
     u: "https://app.powerbi.com/view?r=eyJrIjoiZmEwYWNiYWYtMWM1ZS00MmVhLWJjMzYtYmQyMWQzNTNhZTRiIiwidCI6IjQyODUyNWQ5LTIzYmQtNGY4Yy1hZmEyLTU2MDBmNDAxZjMyNiJ9",
@@ -169,29 +169,32 @@ function Index() {
         />
 
         {/* Hero */}
-        <header className="text-center mb-14 md:mb-20">
+        <header className="text-center mb-8 md:mb-20">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-[11px] font-mono uppercase tracking-[0.4em] text-brand mb-4"
+            className="text-[11px] font-mono uppercase tracking-[0.4em] text-brand -mb-15"
           >
-            // Central de Inteligência Operacional
+            // Central de Controle Operacional
           </motion.p>
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.6 }}
-            className="text-6xl md:text-8xl font-black tracking-tighter italic uppercase leading-none"
+            className="my-1"
           >
-            <span className="text-gradient">GPS</span>{" "}
-            <span className="text-foreground">VISTA</span>
-          </motion.h1>
+            <img 
+              src="/logo-gpsvista.png"
+              alt="Logo GPS Vista" 
+              className="h-20 md:h-80 w-auto mx-auto" 
+              />
+          </motion.div>
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: 96 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="h-[3px] bg-gradient-to-r from-transparent via-brand to-transparent mx-auto mt-6"
+            className="h-[3px] bg-gradient-to-r from-transparent via-brand to-transparent mx-auto -mt-25"
           />
           <motion.p
             initial={{ opacity: 0 }}
@@ -243,8 +246,8 @@ function Index() {
 
         {/* Footer */}
         <footer className="mt-20 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-3 text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground">
-          <span>© {new Date().getFullYear()} GPS Vista · Inteligência Operacional</span>
-          <span>Powered by Microsoft Power BI</span>
+          <span>© {new Date().getFullYear()} GPS Vista · Controle Operacional</span>
+          <span>Criado por Projetos | Regional SP</span>
         </footer>
       </main>
 
