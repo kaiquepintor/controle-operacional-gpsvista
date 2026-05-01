@@ -185,7 +185,7 @@ function Index() {
             className="my-1"
           >
             <img 
-              src="/logo-gpsvista.png"
+              src="./logo-gpsvista.png"
               alt="Logo GPS Vista" 
               className="h-20 md:h-80 w-auto mx-auto" 
               />
